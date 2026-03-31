@@ -25,3 +25,14 @@ pub fn unsubscribe(product_type: &str) -> Result<Json<SubscriberRequest>> {
     };
 
 }
+
+#[post("/receive", data = "<notification>")]
+pub fn receive_notification(notification: Json<Notification>)
+    -> Result<Json<Notification>> {
+
+    return match NotificationService::receive_notification(notification.into_inner()) {
+        Ok(f) => Ok(Json::from(f)),
+        Err(e) => Err(e)
+    };
+
+}
