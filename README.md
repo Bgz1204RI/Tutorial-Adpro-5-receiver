@@ -50,15 +50,15 @@ The notification will be sent using HTTP POST request, so you need to make the r
     -   Open another new terminal, edit `ROCKET_PORT` in `.env` to `8003`, then execute `cargo run`.
 
 ## Mandatory Checklists (Subscriber)
--   [ ] Clone https://gitlab.com/ichlaffterlalu/bambangshop-receiver to a new repository.
+-   [x] Clone https://gitlab.com/ichlaffterlalu/bambangshop-receiver to a new repository.
 -   **STAGE 1: Implement models and repositories**
-    -   [ ] Commit: `Create Notification model struct.`
-    -   [ ] Commit: `Create SubscriberRequest model struct.`
-    -   [ ] Commit: `Create Notification database and Notification repository struct skeleton.`
-    -   [ ] Commit: `Implement add function in Notification repository.`
-    -   [ ] Commit: `Implement list_all_as_string function in Notification repository.`
-    -   [ ] Write answers of your learning module's "Reflection Subscriber-1" questions in this README.
--   **STAGE 3: Implement services and controllers**
+    -   [x] Commit: `Create Notification model struct.`
+    -   [x] Commit: `Create SubscriberRequest model struct.`
+    -   [x] Commit: `Create Notification database and Notification repository struct skeleton.`
+    -   [x] Commit: `Implement add function in Notification repository.`
+    -   [x] Commit: `Implement list_all_as_string function in Notification repository.`
+    -   [x] Write answers of your learning module's "Reflection Subscriber-1" questions in this README.
+-   **STAGE 2: Implement services and controllers**
     -   [ ] Commit: `Create Notification service struct skeleton.`
     -   [ ] Commit: `Implement subscribe function in Notification service.`
     -   [ ] Commit: `Implement subscribe function in Notification controller.`
@@ -77,4 +77,17 @@ This is the place for you to write reflections:
 
 #### Reflection Subscriber-1
 
+### 1. Why do we use RwLock and not Mutex?
+
+In this tutorial, `RwLock` is used to synchronize access to the shared `Vec<Notification>`. The main reason is that `RwLock` allows multiple readers to access the data at the same time while still ensuring that only one writer can modify it. This is useful because in many cases the program may only need to read the notifications rather than modify them.
+
+If we used `Mutex` instead, every read operation would also lock the entire data structure, meaning only one thread could access it at a time. This would reduce concurrency and make the system less efficient. With `RwLock`, multiple threads can read the notifications simultaneously, which improves performance when reads are more frequent than writes.
+
+### 2. Why does Rust not allow mutating static variables like Java?
+
+Rust does not allow mutable access to `static` variables in the same way Java does because Rust focuses heavily on memory safety and preventing data races. If multiple threads were able to modify a static variable directly, it could easily lead to unpredictable behavior or crashes.
+
+Instead, Rust requires safe synchronization mechanisms such as `RwLock`, `Mutex`, or other concurrency primitives. The `lazy_static` crate is used to initialize complex static variables safely at runtime. This design forces developers to handle shared mutable state explicitly, which reduces the risk of bugs related to concurrency and improves overall program safety.
+
 #### Reflection Subscriber-2
+
