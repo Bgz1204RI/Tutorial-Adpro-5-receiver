@@ -59,16 +59,16 @@ The notification will be sent using HTTP POST request, so you need to make the r
     -   [x] Commit: `Implement list_all_as_string function in Notification repository.`
     -   [x] Write answers of your learning module's "Reflection Subscriber-1" questions in this README.
 -   **STAGE 2: Implement services and controllers**
-    -   [ ] Commit: `Create Notification service struct skeleton.`
-    -   [ ] Commit: `Implement subscribe function in Notification service.`
-    -   [ ] Commit: `Implement subscribe function in Notification controller.`
-    -   [ ] Commit: `Implement unsubscribe function in Notification service.`
-    -   [ ] Commit: `Implement unsubscribe function in Notification controller.`
-    -   [ ] Commit: `Implement receive_notification function in Notification service.`
-    -   [ ] Commit: `Implement receive function in Notification controller.`
-    -   [ ] Commit: `Implement list_messages function in Notification service.`
-    -   [ ] Commit: `Implement list function in Notification controller.`
-    -   [ ] Write answers of your learning module's "Reflection Subscriber-2" questions in this README.
+    -   [x] Commit: `Create Notification service struct skeleton.`
+    -   [x] Commit: `Implement subscribe function in Notification service.`
+    -   [x] Commit: `Implement subscribe function in Notification controller.`
+    -   [x] Commit: `Implement unsubscribe function in Notification service.`
+    -   [x] Commit: `Implement unsubscribe function in Notification controller.`
+    -   [x] Commit: `Implement receive_notification function in Notification service.`
+    -   [x] Commit: `Implement receive function in Notification controller.`
+    -   [x] Commit: `Implement list_messages function in Notification service.`
+    -   [x] Commit: `Implement list function in Notification controller.`
+    -   [x] Write answers of your learning module's "Reflection Subscriber-2" questions in this README.
 
 ## Your Reflections
 This is the place for you to write reflections:
@@ -91,3 +91,20 @@ Instead, Rust requires safe synchronization mechanisms such as `RwLock`, `Mutex`
 
 #### Reflection Subscriber-2
 
+### 1. Exploring things outside the tutorial steps
+
+Yes, I did look a little beyond the tutorial steps, especially at files like `src/lib.rs` and the shared configuration parts of the project. In my opinion, doing that helped me understand the project better because the tutorial itself mostly focuses on the main flow, while files outside the steps explain how the application is configured and how different parts are connected. For example, by looking at the shared config and helper code, I could better understand where values like the app instance name, root URL, and HTTP client were coming from.
+
+I think this was useful because it made the project feel less like just copying code and more like understanding how the application actually works. Even if I did not study every single file in detail, checking those extra files gave me more context about how the receiver app communicates with the publisher app and how the project is organized overall.
+
+### 2. How Observer pattern helps plug in more subscribers, and what if there is more than one Main app
+
+After trying the notification system with multiple Receiver instances, I think the Observer pattern makes it much easier to plug in more subscribers. Each receiver can subscribe independently to a product type, and the publisher does not need to know the internal details of each receiver. It only needs to store subscriber information and send notifications when an event happens. Because of that, adding more receivers is relatively easy and does not require changing the main notification logic.
+
+However, if we spawn more than one instance of the Main app, it becomes less simple compared to adding more Receiver instances. The reason is that each Main app instance may have its own in-memory data, including subscribers and products, unless there is a shared database or shared storage. So while Observer pattern makes it easy to scale subscribers, running multiple publisher instances consistently would require additional coordination. In other words, adding more subscribers is easy, but scaling the publisher side would need a more careful design.
+
+### 3. Trying Postman tests or better documentation
+
+I have used Postman mainly to test the endpoints in this tutorial, and I think it is already very helpful even without advanced features. It makes it easier to send requests, check responses, and confirm whether each endpoint works as expected. For this project, that is very useful because I can test subscribe, unsubscribe, receive, and list behavior without needing to build any frontend.
+
+I have not deeply explored making my own automated Postman tests yet, but I can see why they would be useful. Tests and better collection documentation would make it easier to repeat checks, especially in group projects where several people need to use the same API. I think this would be useful not only for tutorial work, but also for future software engineering projects, because it helps keep backend testing more organized and easier to share with teammates.
