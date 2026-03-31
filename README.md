@@ -22,15 +22,6 @@ As this is an Observer Design Pattern tutorial repository, you need to implement
 This feature will receive notifications of creation, promotion, and deletion of a product, when this receiver instance is subscribed to a certain product type.
 The notification will be sent using HTTP POST request, so you need to make the receiver endpoint in this project.
 
-## API Documentations
-
-You can download the Postman Collection JSON here: https://ristek.link/AdvProgWeek7Postman
-
-After you download the Postman Collection, you can try the endpoints inside "BambangShop Receiver" folder.
-
-Postman is an installable client that you can use to test web endpoints using HTTP request.
-You can also make automated functional testing scripts for REST API projects using this client.
-You can install Postman via this website: https://www.postman.com/downloads/
 
 ## How to Run in Development Environment
 1.  Set up environment variables first by creating `.env` file.
